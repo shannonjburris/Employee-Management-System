@@ -1,0 +1,23 @@
+{
+  "name": "employee-management-system",
+  "version": "1.0.0",
+  "description": "This is a command-line application from scratch to manage a company's employee database, using Node.js, Inquirer, and MySQL.",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shannonjburris/Employee-Management-System.git"
+  },
+  "author": "Shannon",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/shannonjburris/Employee-Management-System/issues"
+  },
+  "homepage": "https://github.com/shannonjburris/Employee-Management-System#readme",
+  "dependencies": {
+    "inquirer": "^8.1.2",
+    "mysql2": "^2.2.5"
+  }
+}
