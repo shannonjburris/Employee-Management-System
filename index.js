@@ -1,14 +1,27 @@
 const inquirer = require('inquirer');
 const { adderDepartment, updateEmployee } = require('./db/dbQueries');
 const db = require('./db/dbQueries');
-
-
 let departments = [];
-let employees = [];
-
-// inquirer prompt 
+let employees 	= [];
+let roles 			= [];
+// inquirer prompt
 // switch case for whatever option user picks
 init = () => {
+	db.findAllDepartments().then((rows) => {
+			rows.forEach(department => {
+					departments.push(department.department_name);
+			})
+	})
+	db.findAllRoles().then((rows) => {
+			rows.forEach(role => {
+					roles.push(role.title);
+			})
+	})
+	db.findAllEmployees().then((rows) => {
+			rows.forEach(employee => {
+					employees.push(employee.last_name);
+			})
+	})
     inquirer
         .prompt([
             {
@@ -17,9 +30,9 @@ init = () => {
                 message: 'What would you like to do?',
                 choices: ['view all departments', 'view all roles', 'view all employees', 'add a department', 'add a role', 'add an employee', 'update an employee role']
             }
-            // do I need values behind all the function calls?
+           
         ]).then((answers) => {
-            console.log(answers);
+            
             switch (answers.userChoice) {
                 case 'view all departments':
                     viewDepartments(answers);
@@ -42,44 +55,41 @@ init = () => {
                 case 'update an employee role':
                     updateEmployee(answers);
                     break;
-
                 default:
                     break;
             }
         });
 }
-
 viewDepartments = () => {
     db.findAllDepartments().then((rows) => {
         console.table(rows);
-        rows.forEach(department => {
-            departments.push(department.department_name);
-        })
+				departments = [];
+				rows.forEach(department => {
+						departments.push(department.department_name);
+				})
         init();
     })
 }
-
 viewRoles = () => {
     db.findAllRoles().then((rows) => {
         console.table(rows);
+				roles = [];
         rows.forEach(role => {
             roles.push(role.title);
         })
         init();
     })
-    
 }
-
 viewEmployees = () => {
     db.findAllEmployees().then((rows) => {
         console.table(rows);
+				employees = [];
         rows.forEach(employee => {
             employees.push(employee.last_name);
         })
         init();
     })
 }
-
 addDepartment = () => {
     inquirer
         .prompt([
@@ -91,10 +101,10 @@ addDepartment = () => {
         ]).then((answers) => {
             db.adderDepartment(answers.newDepartmentName);
             viewDepartments();
+            console.log("Department added");
             init();
-        });    
+        });
 }
-    
 addRole = () => {
     inquirer
     .prompt([
@@ -115,14 +125,12 @@ addRole = () => {
             choices: departments
         }
     ]).then((answers) => {
-        // console.log(answers);
+        
         db.adderRole(answers);
-        // viewRoles();
+        console.log("Role added");
         init();
-    });    
-
+    });
 }
-
 addEmployee = () => {
     inquirer
     .prompt([
@@ -137,9 +145,10 @@ addEmployee = () => {
             message: 'What is the employees last name?',
         },
         {
-            type: 'input',
+            type: 'list',
             name: 'employeeRole',
             message: 'What is the employees role?',
+						choices: roles
         },
         {
             type: 'list',
@@ -149,10 +158,10 @@ addEmployee = () => {
         }
     ]).then((answers) => {
         db.adderEmployee(answers);
+        console.log("Employee added");
         init();
     })
-};    
-
+};
 // updateOldEmployee = () => {
 //     inquirer
 //     .prompt([
@@ -170,7 +179,6 @@ addEmployee = () => {
 // ]).then((answers) => {
 //     db.updateEmployee(answers);
 //     init();
-// })  
+// })
 // };
-
 init();
