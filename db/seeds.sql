@@ -13,10 +13,10 @@ VALUES ("SOFTWARE ENGINEER", 500.000, 1),
        ("ACCOUNT MANAGER", 200.000, 4);
 
 INSERT INTO employee (first_name, last_name, role_id, manager_id)
-VALUES ("Bob", "Smith", 1, 3000),
-       ("Britany", "Spears", 2, 4000),
-       ("Ben", "Kissel", 3, 5000),
-       ("Tony", "Hawk", 4, NULL),
-       ("Conor", "Oberst", 5, 6000),
+VALUES ("Bob", "Smith", 1, 2),
+       ("Brittany", "Spears", 2, NULL),
+       ("Ben", "Kissel", 3, 6),
+       ("Tony", "Hawk", 4, 5),
+       ("Conor", "Oberst", 5, NULL),
        ("Wolfgang", "Mozart", 6, NULL);
      

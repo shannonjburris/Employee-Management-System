@@ -1,5 +1,5 @@
 const inquirer = require('inquirer');
-const { adderDepartment } = require('./db/dbQueries');
+const { adderDepartment, updateEmployee } = require('./db/dbQueries');
 const db = require('./db/dbQueries');
 
 
@@ -62,6 +62,9 @@ viewDepartments = () => {
 viewRoles = () => {
     db.findAllRoles().then((rows) => {
         console.table(rows);
+        rows.forEach(role => {
+            roles.push(role.title);
+        })
         init();
     })
     
@@ -147,8 +150,27 @@ addEmployee = () => {
     ]).then((answers) => {
         db.adderEmployee(answers);
         init();
-    });    
+    })
+};    
 
-}
+// updateOldEmployee = () => {
+//     inquirer
+//     .prompt([
+//     {
+//         type: 'list',
+//         name: 'updateEmployee',
+//         message: 'Which employee do you want to update?',
+//         choices: employees
+//     },
+//    {    type: 'list',
+//         name: 'updateRole',
+//         message: 'Which role would you like them to change to?',
+//         choices: role
+//     }
+// ]).then((answers) => {
+//     db.updateEmployee(answers);
+//     init();
+// })  
+// };
 
 init();
