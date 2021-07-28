@@ -1,8 +1,10 @@
 const connection = require('./connection');
+
 class DB {
     constructor(connection){
         this.connection = connection
     }
+
     findAllDepartments (){
         return this.connection.query(
         "SELECT * FROM department;"
@@ -17,6 +19,8 @@ class DB {
     findAllEmployees (){
         return this.connection.query(
             "SELECT employee.id, employee.first_name, employee.last_name, role.title, department.department_name AS department, role.salary, CONCAT(manager.first_name, ' ', manager.last_name) AS manager FROM employee LEFT JOIN role on employee.role_id = role.id LEFT JOIN department on role.department_id = department.id LEFT JOIN employee manager on manager.id = employee.manager_id;")
+
+
     }
     adderDepartment (department){
         return this.connection.query(
@@ -47,10 +51,12 @@ class DB {
 					)
 				})
     }
-    updateEmployee () {
+    updateEmployee (employee, role) {
         return this.connection.query(
-            // I am prompted to select an employee to update and their new role and this information is updated in the database
+            "UPDATE employee SET role_id = (SELECT id FROM role WHERE title='" + role + "') WHERE last_name = '" + employee + "';"
         )
     }
 }
+
+
 module.exports = new DB(connection);

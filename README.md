@@ -4,5 +4,5 @@ This is a command-line application to manage a company's employee database, usin
 <br>
 <a href="https://github.com/shannonjburris/Employee-Management-System" target="_blank">Link to Repo</a>
  <br>
- <a href="https://www.loom.com/share/ce6a94a2d087443e8b1ecb967d46273b" target="_blank">Link to video</a>
+ <a href="https://www.loom.com/share/e8d27fd8b6e34180a97ee52343547ef0" target="_blank">Link to video</a>
  <br>
